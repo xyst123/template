@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>template</title>
+    <link rel="dns-prefetch" href="//static.daojia.com">
+    <link rel="dns-prefetch" href="//images.daojia.com">
+    <link rel="dns-prefetch" href="//jzt.daojia.com">
+  </head>
+  <body>
+    <div>env:<%= htmlWebpackPlugin.options.env %></div>
+
+     <!-- 通过编译参数，控制html中输出 -->
+    <%=htmlWebpackPlugin.options.myvar2 %>
+    <% if (htmlWebpackPlugin.options.myvar2 === "no") { %>
+      <div>var2:<%= htmlWebpackPlugin.options.myvar2 %></div>
+    <% } %>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+
+
+  </body>
+</html>
