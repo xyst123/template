@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "description": "A vue-common project",
   "author": "xyst123 <2273136383@qq.com>",
-  "daojia-template": "vue-common",
-  "daojia-template-version": "1.0.0",
   "private": true,
   "config": {
     "static_domain": "yes"

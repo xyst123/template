@@ -4,7 +4,7 @@ module.exports = {
   env: {
     NODE_ENV: '"dev"' //输出的环境变量名
   },
-  port: 8080, //dev-server监听的端口
+  port: 8081, //dev-server监听的端口
   autoOpenBrowser: true, //启动dev-server之后是否自动打开浏览器
   assetsSubDirectory: 'static', //webpack编译输出的二级文件夹
   assetsPublicPath: '/', // webpack编译输出的发布路径

@@ -2,9 +2,7 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-var SpritesmithPlugin = require('webpack-spritesmith')
-var scssTemplate = require('./sprites/scss.js')
-var cssTemplate = require('./sprites/css.js')
+var SpriteSmithPlugin = require('webpack-spritesmith')
 var buildEnv = process.env.NODE_ENV
 var eslintRule = {
   test: /\.(js|vue)$/,
@@ -14,7 +12,7 @@ var eslintRule = {
   options: {
     formatter: require('eslint-friendly-formatter'),
     // 可以通过环境变量配置是否eslint时进行fix，默认是false，不fix
-    fix: typeof(process.env.eslint_fix) === undefined ? false : process.env.eslint_fix
+    fix: typeof (process.env.eslint_fix) === undefined ? false : process.env.eslint_fix
   }
 };
 var exportsEslintRule = config.commonConfig.useEslint ? eslintRule : {}
@@ -79,20 +77,14 @@ var webpackConfig = {
 }
 
 // 配置sprite插件
-if (config.commonConfig.useSprite && spriteConfig) {
-  var spriteType = { unit: spriteConfig.unit, scale: spriteConfig.scale }
-  var cssPath = []
+if (spriteConfig.enable) {
+  const cssPath = []
   if (spriteConfig.target.css) {
     cssPath.push([path.resolve(__dirname, '../' + spriteConfig.target.css), {
       format: 'css_template'
     }]);
   }
-  if (spriteConfig.target.scss) {
-    cssPath.push([path.resolve(__dirname, '../' + spriteConfig.target.scss), {
-      format: 'scss_template'
-    }]);
-  }
-  webpackConfig.plugins.push(new SpritesmithPlugin({
+  webpackConfig.plugins.push(new SpriteSmithPlugin({
     src: {
       cwd: path.resolve(__dirname, '../' + spriteConfig.src.path),
       glob: spriteConfig.src.glob
@@ -109,11 +101,9 @@ if (config.commonConfig.useSprite && spriteConfig) {
       padding: spriteConfig.padding || 10
     },
     customTemplates: {
-      'css_template': cssTemplate(spriteType),
-      'scss_template': scssTemplate(spriteType)
+      'css_template': spriteConfig.template.css(spriteConfig.scale, spriteConfig.unit)
     }
-  })
-  )
+  }))
 }
 
 module.exports = webpackConfig

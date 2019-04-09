@@ -1,4 +1,4 @@
-import './style/global.scss'
+import './style/base.scss'
 
 // 引入promise垫片
 import 'es6-promise/auto'
