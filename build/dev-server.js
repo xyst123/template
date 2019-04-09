@@ -31,7 +31,7 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-  log: () => {}
+  log: () => { }
 })
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
@@ -56,21 +56,18 @@ if (Object.keys(proxyTable).length === 0) {
         if (path.extname(mockFile) !== '.js') return;
         var obj = {}
         var mockObj = require(mockFile)
-        obj[ mockObj.api ] = mockObj.response
-
+        obj[mockObj.api] = mockObj.response
         fs.watch(mockFile, (eventType, filename) => {
           var filePath = path.resolve(mockDir, filename)
-          // 清除require缓存
           console.info('file changed %s', filePath)
           delete require.cache[filePath]
           try {
             var changedFile = require(filePath)
-            obj[ changedFile.api ] = changedFile.response
+            obj[changedFile.api] = changedFile.response
             console.log(changedFile.response)
-            // 触发页面刷新
             hotMiddleware.publish({ action: 'reload' })
           } catch (error) {
-            // mock文件不存在或被删除时防止报错
+            // mock锟侥硷拷锟斤拷锟斤拷锟节伙拷删锟斤拷时锟斤拷止锟斤拷锟斤拷
           }
         })
         serve(obj || {})
@@ -113,33 +110,27 @@ var readyPromise = new Promise(resolve => {
 console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
-  // when env is testing, don't need open it
   if (autoOpenBrowser) {
     opn(uri)
   }
   _resolve()
 })
 
-/**
- * 检测端口是否被占用，占用则端口号+1再次尝试，最多尝试20次
- * @param {*} portNum 端口号 
- */
 function bindPoint(portNum) {
-  // 创建服务并监听该端口
   var testServer = net.createServer().listen(portNum)
-  testServer.on('listening', function () { // 执行这块代码说明端口未被占用
-    testServer.close() // 关闭服务
+  testServer.on('listening', function () {
+    testServer.close()
     var server = app.listen(portNum)
     uri = 'http://localhost:' + portNum
   })
 
   testServer.on('error', function (err) {
-    if (err.code === 'EADDRINUSE') { // 端口已经被使用
+    if (err.code === 'EADDRINUSE') {
       if (portNum < port + 20) {
-        console.log(`端口${portNum}被占用，改用${portNum + 1}`)
+        console.log(`锟剿匡拷${portNum}锟斤拷占锟矫ｏ拷锟斤拷锟斤拷${portNum + 1}`)
         bindPoint(++portNum)
       }
-      else console.log(`端口${port}~${port + 20}都被占用！`)
+      else console.log(`锟剿匡拷${port}~${port + 20}锟斤拷锟斤拷占锟矫ｏ拷`)
     }
   })
 }

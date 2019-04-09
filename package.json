@@ -7,8 +7,7 @@
   "daojia-template-version": "1.0.0",
   "private": true,
   "config": {
-    "static_domain": "yes",
-    "eslint_fix": false
+    "static_domain": "yes"
   },
   "scripts": {
     "start": "npm run dev",
@@ -18,12 +17,12 @@
     "build:prod": "fuck-env NODE_ENV=production node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.16.2",
+    "es6-promise": "^4.1.1",
     "msprite-loader": "^0.1.0",
     "vue": "^2.3.3",
     "vue-router": "^2.5.0",
-    "axios": "^0.16.2",
-    "vuex": "^2.3.1",
-    "es6-promise": "^4.1.1"
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

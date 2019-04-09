@@ -1,6 +1,5 @@
 # template
-
-> A vue-common project
+> Vue项目模板，只适用于前后端分离的项目
 
 ## Build Setup
 
@@ -21,13 +20,19 @@ npm run build:sandbox
 npm run build:prod
 
 ````
+## 配置多入口
++ 在config/index.js的导出对象的pages属性中修改，参见注释掉的部分
 
 ## 配置mock数据
-在mock目录，添加一个目录用以区分不同的空间，然后在目录里添加一个mock数据文件，可以参考mock/pa/a.js；
-如果项目比较小，也可以不同区分不同的空间，直接在mock下新建一个mock数据文件，参考mock/test.js
-开发过程，mock文件修改时，自动会加载页面；
++ 在mock目录，添加一个目录用以区分不同的空间，然后在目录里添加一个mock数据文件，可以参考mock/user/info.js
++ 如果项目比较小，也可以不区分不同的空间，直接在mock目录下新建一个mock数据文件，可以参考mock/submit.js
++ 开发过程中，mock文件修改时，会自动更新页面
 
-## 合并雪碧图配置
+## 配置开发环境代理
++ 在config/dev.js的导出对象的proxyTable属性处修改，参考文件内注释，修改后必须重新npm run dev才能生效
++ 如果proxyTable中配置了代理，会导致所有mock数据全部失效（即mock和proxyTable只能选用其一，这是为了避免数据来源错乱），要想恢复mock数据，请将proxyTable置为空对象。具体代码参见build/dev-server.js
+
+## 自动生成雪碧图及sprite.css配置
 有两种方式
 ### 方法1：对于小型项目，整个项目所有的图标都合并到一张图上
 1. 把`config/index.js` 中
@@ -49,10 +54,6 @@ background-image: url("../assets/sprite/icon/present.png?_sprite");
 
 4、构建后，每一个页面的css中图片自动合成到一张图片上，同时修改相关的样式属性
 
-
-## 开发过程，要代理某个api到特定的url上，例如线上或测试环境
-在.api-proxy.js中增加或修改需要代理的api的地址即可，修改后需要重启服务
-
 ## 路由的写法参考`src/router/index.js`
 支持动态加载某个页面的资源和直接打包到一个js文件中
 
@@ -63,4 +64,3 @@ background-image: url("../assets/sprite/icon/present.png?_sprite");
 2. 在项目根目录的.env中文件中可以根据需要，动态修改环境变量的值，来达到不同的构建结果
 3. 模板中缺省的变量参数说明
 - static_domain 缺省是true，用于构建test/sandbox/prod版本时，代码中引用的静态资源是否添加静态资源域名，当想构建一个本地测试版本（请求的静态资源不是服务器上而是本地文件）时，static_domain置为false，然后以dist目录作为webroot在本地测试线上版本的逻辑；
-- eslint_fix 缺省是false，用于在eslint代码时是否自动修复不符合规则的代码；有时候自动fix可能带来意外的bug，默认关闭。

@@ -8,11 +8,11 @@ module.exports = {
   //多入口配置
   pages: {
     'my-index': {
-      filename: 'index.html', //入口html文件
-      template: 'index.html', //html文件所引用的模板[多个入口可以共用一个模板]
-      src: './src/main.js', //入口js
-      inject: 'body', //js在生成html中的注入位置，默认为body标签
-      chunks: ['my-index'] //打包后的文件名，为保持结构清晰，与pages的key保持一致
+      filename: 'index.html', // 入口html文件
+      template: 'index.html', // html文件所引用的模板[多个入口可以共用一个模板]
+      src: './src/main.js', // 入口js
+      inject: 'body', // js在生成html中的注入位置，默认为body标签
+      chunks: ['my-index'] // 打包后的文件名，为保持结构清晰，与pages的key保持一致
     }
     // ,
     // 'other': {
